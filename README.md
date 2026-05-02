@@ -6,6 +6,8 @@
 
 本项目基于 UCSD Triton Transit 最新 GTFS static feed，围绕校园班车晚间服务体验问题，从排班供给侧诊断当前晚间服务缺口，并提出可执行的排班优化方案。
 
+项目采用 SQL + Python/Pandas 的分析流程。GTFS 数据本身是典型的多表结构，因此项目使用 SQL 完成路线、班次、站点和时刻表数据的连接与核心指标聚合；随后使用 Python/Pandas 对分析结果进行整理、可视化、dashboard 数据导出和优化模拟。
+
 项目重点不是简单判断“有没有班车”，而是回答：
 
 > 晚间服务缺口主要集中在哪些时间段、路线和站点？  
@@ -49,25 +51,19 @@ UCSD Triton Transit 是 UCSD 校园交通服务的重要组成部分。晚间班
 
 ## 分析方法
 
-本项目采用业务分析项目常用流程：
+本项目采用 SQL + Python/Pandas 的分析流程，将 GTFS 多表数据处理、指标计算、可视化分析和优化模拟拆分为不同环节。
 
-1. **数据质量检查**  
-   检查 GTFS 核心表是否完整，确认 `routes`、`trips`、`stop_times`、`stops` 等表可以正常连接。
+1. **SQL 数据建模与多表连接**  
+   使用 DuckDB SQL 读取 GTFS 原始表，并连接 `routes`、`trips`、`stop_times`、`stops` 等表，构建路线、班次、站点和时间维度的分析表。
 
-2. **构建服务分析宽表**  
-   将 `stop_times`、`trips`、`routes`、`stops` 进行连接，形成 trip-level 和 stop-level 分析表。
+2. **SQL 核心指标生产**  
+   使用 SQL 计算 `hourly_service_frequency`、`estimated_headway_min`、`evening_service_share`、`last_trip_time`、`stop_evening_coverage_rate` 和 `Evening Service Gap Score` 等核心指标。
 
-3. **计算晚间服务指标**  
-   计算每小时计划班次数、估算发车间隔、晚间服务占比、末班车时间、站点晚间覆盖率等指标。
+3. **Python/Pandas 结果整理与可视化**  
+   使用 Python/Pandas 对 SQL 产出的分析结果进行整理，并生成晚间小时服务图、路线 Gap Score 图、路线 × 小时热力图和站点覆盖图。
 
-4. **定位服务缺口**  
-   从时间段、路线、站点三个维度找出晚间服务薄弱环节。
-
-5. **设计 Evening Service Gap Score**  
-   将多个服务缺口指标合成为路线级优先级评分，用于判断哪些路线最需要优化。
-
-6. **模拟排班优化方案**  
-   根据路线优先级，模拟增加晚间班次、延后末班车后的核心指标改善情况。
+4. **优化模拟与业务建议**  
+   基于 SQL 指标结果和 Python 可视化分析，从时间段、路线和站点三个维度定位晚间服务缺口，并提出排班优化方案。
 
 ---
 
@@ -94,7 +90,7 @@ UCSD Triton Transit 是 UCSD 校园交通服务的重要组成部分。晚间班
 
 这说明晚间服务缺口并不是平均分布的，而是主要集中在较晚时段，尤其是 20:00 之后。
 
-![Evening Hourly Service](outputs/chart_evening_hourly_service.png)
+![Evening Hourly Service](outputs/chart_sql_evening_hourly_service.png)
 
 ---
 
@@ -103,7 +99,7 @@ UCSD Triton Transit 是 UCSD 校园交通服务的重要组成部分。晚间班
 路线级 Evening Service Gap Score 显示，不同路线之间的晚间服务缺口差异明显。  
 部分路线存在晚间班次少、估算发车间隔长、末班车偏早等问题，因此应被优先纳入排班优化。
 
-![Route Gap Score](outputs/chart_route_gap_score.png)
+![Route Gap Score](outputs/chart_sql_route_gap_score.png)
 
 ---
 
@@ -117,16 +113,16 @@ UCSD Triton Transit 是 UCSD 校园交通服务的重要组成部分。晚间班
 - 哪些小时段最适合增加服务；
 - 是否需要将低峰资源转移到晚间高缺口时段。
 
-![Route Hour Heatmap](outputs/chart_route_hour_heatmap.png)
+![Route Hour Heatmap](outputs/chart_sql_route_hour_heatmap.png)
 
 ---
 
-### 发现四：部分高访问站点晚间覆盖不足
+### 发现四：部分站点晚间覆盖不足
 
 站点级分析显示，部分站点全天访问次数较高，但晚间覆盖率偏低。  
 这类站点可能靠近宿舍区、停车场、换乘点或校园主要活动区域，适合被列为重点站点覆盖补强对象。
 
-![Stop Gap Score](outputs/chart_stop_gap_score_top10.png)
+![Stop Evening Coverage](outputs/chart_sql_stop_evening_coverage.png)
 
 ---
 
@@ -209,11 +205,13 @@ ucsd-triton-transit-evening-gap-analysis/
 ├── data_dictionary.md
 ├── requirements.txt
 ├── Notebooks/
-│   └── 01_gtfs_service_gap_analysis.ipynb
+│   ├── 01_gtfs_service_gap_analysis.ipynb
+│   └── 02_sql_metrics_analysis.ipynb
 ├── sql/
 │   └── gtfs_service_gap_analysis.sql
 ├── dashboard_data/
 ├── outputs/
+│   └── sql_outputs/
 └── report/
     └── business_report.md
 ```
@@ -222,10 +220,10 @@ ucsd-triton-transit-evening-gap-analysis/
 
 ## 使用工具
 
-- Python
-- Pandas
 - SQL
 - DuckDB
+- Python
+- Pandas
 - Matplotlib
 - GTFS
 - Tableau / Power BI ready datasets
@@ -258,12 +256,12 @@ ucsd-triton-transit-evening-gap-analysis/
 
 ```text
 业务问题定义
-→ 数据清洗与建表
-→ 指标体系搭建
+→ SQL 多表连接与指标生产
+→ Python/Pandas 结果整理与可视化
 → 服务缺口诊断
 → 优先级排序
 → 排班优化建议
 → 优化效果模拟
 ```
 
-相比普通 EDA 项目，本项目更强调业务场景、指标设计和运营决策支持。
+相比普通 EDA 项目，本项目更强调业务场景、指标设计、SQL 数据建模和运营决策支持，体现了从数据分析到业务优化建议的完整流程。

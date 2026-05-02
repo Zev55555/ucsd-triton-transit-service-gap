@@ -4,6 +4,8 @@
 
 本项目基于 UCSD Triton Transit 最新 GTFS static feed，对校园班车工作日晚间服务供给进行分析，重点诊断 17:00–22:00 之间的服务缺口，并提出排班优化建议。
 
+项目采用 SQL + Python/Pandas 的分析流程。SQL 用于处理 GTFS 多表结构，完成路线、班次、站点和时刻表数据的连接与核心指标计算；Python/Pandas 用于结果整理、图表绘制、dashboard 数据导出和优化模拟。
+
 分析结果显示，工作日晚间班次在 20:00 后明显减少，21:00–22:00 是服务供给最低的时段。路线层面，不同路线之间的晚间服务差异明显，部分路线存在晚间班次较少、估算发车间隔较长、末班车偏早等问题。站点层面，部分全天访问量较高的站点在晚间覆盖不足，适合作为重点补强对象。
 
 本项目通过构建 `hourly_service_frequency`、`estimated_headway_min`、`evening_service_share`、`last_trip_time`、`stop_evening_coverage_rate` 等指标，并设计 `Evening Service Gap Score`，将晚间服务缺口转化为可量化、可排序、可执行的运营优化问题。
@@ -80,9 +82,11 @@ GTFS static feed 是公共交通领域常用的数据格式，包含路线、班
 
 ---
 
-### 5.2 构建服务分析宽表
+### 5.2 SQL 数据建模与指标计算
 
-本项目将 GTFS 表按照以下逻辑连接：
+本项目采用 SQL + Python/Pandas 的分析流程。GTFS 数据本身是典型的多表结构，因此项目首先使用 DuckDB SQL 对路线、班次、站点和时刻表数据进行连接、聚合和核心指标计算。
+
+核心连接逻辑如下：
 
 ```text
 stop_times
@@ -91,15 +95,37 @@ stop_times
 → stops
 ```
 
-构建两类分析表：
+SQL 部分主要完成以下工作：
 
-1. **trip-level 表**  
-   用于分析每条路线的班次数、首末班车时间、晚间班次占比和估算发车间隔。
+- 构建 trip-level 服务分析表；
+- 将 GTFS 时间字段转换为可计算的分钟数和小时字段；
+- 计算每小时计划班次数 `hourly_service_frequency`；
+- 计算路线级晚间班次 `evening_trips`；
+- 计算晚间服务占比 `evening_service_share`；
+- 计算路线末班车时间 `last_trip_time`；
+- 计算估算发车间隔 `estimated_headway_min`；
+- 计算站点级全天访问次数、晚间访问次数和晚间覆盖率；
+- 构建路线级 `Evening Service Gap Score`，用于判断路线优化优先级。
 
-2. **stop-level 表**  
-   用于分析每个站点的全天访问次数、晚间访问次数和晚间覆盖率。
+SQL 处理流程覆盖了多表连接、时间字段处理、分组聚合、窗口函数、条件判断和优先级排序等核心数据分析操作。
 
-由于部分中间站点缺少完整到站时间，本项目在站点分析中使用 trip 内部线性插值方式估算站点到达时间，以支持晚间覆盖分析。
+---
+
+### 5.3 Python/Pandas 可视化与优化模拟
+
+在 SQL 生成核心指标后，项目使用 Python/Pandas 对分析结果进行进一步整理和展示。
+
+Python/Pandas 部分主要完成：
+
+- 整理 SQL 产出的小时级、路线级和站点级指标表；
+- 绘制晚间小时服务频率图；
+- 绘制路线级 `Evening Service Gap Score` 排名图；
+- 绘制路线 × 小时服务热力图；
+- 绘制站点晚间覆盖分析图；
+- 导出 dashboard-ready 数据表；
+- 基于路线优先级进行 before-after 优化模拟。
+
+因此，本项目中 SQL 主要承担数据建模和核心指标计算，Python/Pandas 主要承担结果整理、可视化展示和优化方案模拟。
 
 ---
 
@@ -117,11 +143,13 @@ stop_times
 | `stop_evening_coverage_rate` | 站点晚间覆盖率 | 衡量站点晚间服务是否不足 |
 | `Evening Service Gap Score` | 晚间服务缺口评分 | 用于路线优化优先级排序 |
 
+这些指标从时间段、路线和站点三个层面衡量晚间服务供给情况，使“晚间服务体验差”这一较模糊的问题可以被量化分析。
+
 ---
 
 ## 7. 核心发现
 
-## 7.1 晚间服务在 20:00 后明显变弱
+### 7.1 晚间服务在 20:00 后明显变弱
 
 工作日正常服务中，17:00–22:00 的晚间计划班次逐小时下降：
 
@@ -137,11 +165,11 @@ stop_times
 
 这说明晚间服务缺口并不是均匀分布的，而是集中在晚间后半段。
 
-![Evening Hourly Service](../outputs/chart_evening_hourly_service.png)
+![Evening Hourly Service](../outputs/chart_sql_evening_hourly_service.png)
 
 ---
 
-## 7.2 路线级服务缺口集中在少数路线
+### 7.2 路线级服务缺口集中在少数路线
 
 路线级分析显示，不同路线之间的晚间服务供给差异明显。部分路线虽然全天有一定服务，但晚间班次数较少，导致估算发车间隔较长；部分路线还存在末班车偏早的问题。
 
@@ -153,11 +181,11 @@ stop_times
 
 评分越高，说明路线晚间服务缺口越大，越应该被优先优化。
 
-![Route Gap Score](../outputs/chart_route_gap_score.png)
+![Route Gap Score](../outputs/chart_sql_route_gap_score.png)
 
 ---
 
-## 7.3 路线和小时的服务缺口分布不均匀
+### 7.3 路线和小时的服务缺口分布不均匀
 
 路线 × 小时热力图显示，晚间服务缺口并不是所有路线同时变弱，而是部分路线在特定小时段出现明显低供给。
 
@@ -167,17 +195,17 @@ stop_times
 - 哪些小时段最适合增加服务；
 - 是否可以将低优先级时段的资源转移到晚间高缺口时段。
 
-![Route Hour Heatmap](../outputs/chart_route_hour_heatmap.png)
+![Route Hour Heatmap](../outputs/chart_sql_route_hour_heatmap.png)
 
 ---
 
-## 7.4 部分高访问站点晚间覆盖不足
+### 7.4 部分站点晚间覆盖不足
 
 站点级分析显示，部分站点全天访问次数较高，但晚间覆盖率偏低。这类站点可能靠近宿舍区、停车场、换乘点或校园主要活动区域。
 
 对于这类站点，单纯看路线班次数可能无法发现问题；需要结合站点访问频率和晚间覆盖率来判断是否存在局部服务缺口。
 
-![Stop Gap Score](../outputs/chart_stop_gap_score_top10.png)
+![Stop Evening Coverage](../outputs/chart_sql_stop_evening_coverage.png)
 
 ---
 
@@ -300,6 +328,8 @@ outputs/route_optimization_simulation.csv
 - 真实乘客等待时间。
 
 因此，本文中的 `estimated_headway_min` 应理解为基于计划班次的估算发车间隔，而不是真实乘客等待时间。
+
+另外，站点级 SQL 分析使用 trip 起始小时作为站点晚间访问的近似判断。对于更精细的站点到达时间分析，可以进一步结合站点级时间插值或实时到站数据。
 
 ---
 

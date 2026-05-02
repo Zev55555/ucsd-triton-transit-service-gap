@@ -1,0 +1,6 @@
+route_name,total_trips,evening_trips,evening_service_share,estimated_evening_headway_min,last_trip_time,headway_score,early_last_trip_score,low_evening_share_score,evening_gap_score,optimization_priority
+S - SIO Shuttle,53,13.0,0.245,23.08,20:30,1.0,0.75,1.0,0.913,P1 - high priority
+OL - Outside Loop,55,15.0,0.273,20.0,21:30,0.619,0.25,0.642,0.496,P2 - medium priority
+ML - Mesa Loop,80,20.0,0.25,15.0,21:30,0.0,0.25,0.939,0.322,P3 - low priority
+R - Regents Express,81,20.0,0.247,15.0,22:10,0.0,0.0,0.979,0.245,P3 - low priority
+IL - Inside Loop,59,19.0,0.322,15.79,21:45,0.098,0.125,0.0,0.083,P3 - low priority

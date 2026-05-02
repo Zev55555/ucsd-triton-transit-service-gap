@@ -1,0 +1,5 @@
+metric,before,after,improvement
+Total evening trips,87.0,90.0,-3.0
+Average route evening headway,17.77327935222672,16.907894736842103,0.8653846153846168
+Routes ending before 22:00,4.0,2.0,2.0
+High priority routes,1.0,0.0,1.0

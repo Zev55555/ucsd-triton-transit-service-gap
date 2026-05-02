@@ -1,0 +1,13 @@
+
+SQL + Python analysis summary:
+
+1. The lowest evening service hour is 21:00-22:00, with 10 scheduled trips.
+
+2. The route with the highest Evening Service Gap Score is S - SIO Shuttle.
+It has 13 evening trips, an estimated evening headway of 23.08 minutes, and a last trip time of 20:30.
+
+3. The stop with the lowest evening coverage among the SQL output is Nierenberg Hall.
+It has 53 total weekday visits and 13 evening visits.
+
+4. SQL was used for GTFS multi-table joins, time conversion, service aggregation, route-level scoring, and stop-level coverage analysis.
+Python/Pandas was used for result organization, visualization, dashboard-ready outputs, and optimization simulation.

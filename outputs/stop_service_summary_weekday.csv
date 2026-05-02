@@ -1,0 +1,53 @@
+stop_id,stop_name,stop_lat,stop_lon,total_visits,evening_visits,routes_serving_stop,evening_coverage_rate
+1505,Franklin Antonio / Atkinson Halls (North),32.882977,-117.235258,55,15,OL - Outside Loop,0.2727272727272727
+1510,RIMAC / Hopkins Parking Structure (East),32.88445,-117.238616,55,15,OL - Outside Loop,0.2727272727272727
+1520,Seventh College (West),32.887713,-117.242361,55,15,OL - Outside Loop,0.2727272727272727
+1525,Eleanor Roosevelt / Seventh Colleges (West),32.886462,-117.2425,55,15,OL - Outside Loop,0.2727272727272727
+1530,Eleanor Roosevelt / Marshall Colleges (West),32.884176,-117.242484,55,15,OL - Outside Loop,0.2727272727272727
+1535,Sixth College (West),32.879964,-117.242487,55,16,OL - Outside Loop,0.2909090909090909
+1540,Muir College (West),32.877819,-117.24372,55,16,OL - Outside Loop,0.2909090909090909
+1545,Revelle College (West),32.875515,-117.243166,55,16,OL - Outside Loop,0.2909090909090909
+2030,Muir College (East),32.877838,-117.243607,59,19,IL - Inside Loop,0.3220338983050847
+2035,Sixth College (East),32.880711,-117.242371,59,19,IL - Inside Loop,0.3220338983050847
+2040,Eleanor Roosevelt / Marshall Colleges (East),32.884335,-117.242348,59,19,IL - Inside Loop,0.3220338983050847
+2045,Eleanor Roosevelt / Seventh Colleges (East),32.886558,-117.242369,59,19,IL - Inside Loop,0.3220338983050847
+2050,Seventh College (East),32.888332,-117.242094,59,19,IL - Inside Loop,0.3220338983050847
+2055,RIMAC / Hopkins Parking Structure (West),32.884328,-117.23869,59,19,IL - Inside Loop,0.3220338983050847
+2060,Franklin Antonio / Atkinson Halls (North),32.882873,-117.235179,59,19,IL - Inside Loop,0.3220338983050847
+3005,UCSD Extended Studies Building (North),32.871886,-117.234716,53,13,S - SIO Shuttle,0.24528301886792453
+3040,Eckart Building / Hubbs Hall,32.866324,-117.252712,53,13,S - SIO Shuttle,0.24528301886792453
+3045,Scripps Seaside Forum / Beach,32.865352,-117.253931,53,14,S - SIO Shuttle,0.2641509433962264
+3055,Nierenberg Hall,32.869245,-117.251025,53,14,S - SIO Shuttle,0.2641509433962264
+3060,Birch Aquarium,32.866286,-117.250312,53,14,S - SIO Shuttle,0.2641509433962264
+3065,Coast Apartments (South),32.86901,-117.246914,53,14,S - SIO Shuttle,0.2641509433962264
+3070,Expedition Wy & Capricorn Ln,32.870854,-117.243758,53,14,S - SIO Shuttle,0.2641509433962264
+3505,Athena Parking Structure,32.879164,-117.222168,81,20,R - Regents Express,0.24691358024691357
+3510,UCSD Health La Jolla Trolley (North),32.882449,-117.223832,81,20,R - Regents Express,0.24691358024691357
+9902,Ridge Walk Mobility Hub,32.888709,-117.240648,114,34,"IL - Inside Loop, OL - Outside Loop",0.2982456140350877
+9903,Gilman Dr & Pepper Canyon Dr (North),32.876343,-117.230416,139,39,"IL - Inside Loop, ML - Mesa Loop",0.2805755395683453
+9904,WongAvery Library (East),32.874461,-117.23834,108,30,"OL - Outside Loop, S - SIO Shuttle",0.2777777777777778
+9906,Warren Field (South),32.880989,-117.229831,140,39,"IL - Inside Loop, R - Regents Express",0.2785714285714286
+9908,WongAvery Library (West),32.874272,-117.238416,139,40,"IL - Inside Loop, ML - Mesa Loop",0.28776978417266186
+9910,Revelle College (East),32.875574,-117.243091,112,32,"IL - Inside Loop, S - SIO Shuttle",0.2857142857142857
+9911,Warren Field (North),32.880735,-117.230701,136,36,"OL - Outside Loop, R - Regents Express",0.2647058823529412
+9912,Mesa Nueva,32.875787,-117.223533,160,42,ML - Mesa Loop,0.2625
+9913,Nuevo East,32.875523,-117.220426,80,20,ML - Mesa Loop,0.25
+9914,P785 Parking Lot,32.878701,-117.220433,81,20,R - Regents Express,0.24691358024691357
+9915,Koman Outpatient / Moores Cancer,32.87765,-117.223062,80,20,ML - Mesa Loop,0.25
+9916,Jacobs Medical Center,32.876445,-117.226703,80,20,ML - Mesa Loop,0.25
+9917,Central Mesa,32.872669,-117.221346,80,21,ML - Mesa Loop,0.2625
+9918,Nuevo West,32.874402,-117.225857,80,22,ML - Mesa Loop,0.275
+9919,P703 / Regents Parking Lots,32.879802,-117.220002,162,40,R - Regents Express,0.24691358024691357
+9920,UCSD Health La Jolla Trolley (South),32.88174,-117.222669,81,20,R - Regents Express,0.24691358024691357
+9921,Gilman Dr & Mandeville Ln,32.876954,-117.237963,55,16,OL - Outside Loop,0.2909090909090909
+10378,UCSD Extended Studies Building (South),32.871524,-117.233241,80,21,ML - Mesa Loop,0.2625
+10772,Gilman Transit Center (North),32.877111,-117.237377,139,40,"IL - Inside Loop, ML - Mesa Loop",0.28776978417266186
+11528,Coast Apartments (West),32.869563,-117.248512,53,13,S - SIO Shuttle,0.24528301886792453
+11850,IGPP,32.867439,-117.252156,53,13,S - SIO Shuttle,0.24528301886792453
+11852,Southwest Fisheries,32.86973,-117.251695,53,13,S - SIO Shuttle,0.24528301886792453
+11873,La Jolla Shores Dr & Inyaha Ln,32.874076,-117.244956,53,13,S - SIO Shuttle,0.24528301886792453
+11902,Gilman Transit Center (South),32.876952,-117.234952,161,43,"OL - Outside Loop, S - SIO Shuttle",0.2670807453416149
+12284,Vaughan Hall,32.865726,-117.252189,53,14,S - SIO Shuttle,0.2641509433962264
+24150,Eighth College / Theatre District (South),32.872084,-117.241795,108,30,"OL - Outside Loop, S - SIO Shuttle",0.2777777777777778
+24151,Eighth College / Theatre District (North),32.871718,-117.242206,112,32,"IL - Inside Loop, S - SIO Shuttle",0.2857142857142857
+88986,UCSD Central Campus Trolley,32.8793,-117.231916,309,89,"IL - Inside Loop, OL - Outside Loop, R - Regents Express",0.28802588996763756

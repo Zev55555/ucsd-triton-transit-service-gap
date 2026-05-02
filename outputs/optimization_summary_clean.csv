@@ -1,0 +1,5 @@
+metric,before,after,business_interpretation
+Total evening scheduled trips,87.0,90.0,晚间计划班次数增加，服务供给增强
+Average route-level evening headway,17.77,16.91,路线平均晚间发车间隔缩短
+Routes ending before 22:00,4.0,2.0,末班车偏早的路线减少
+High-priority gap routes,1.0,0.0,高优先级服务缺口路线被处理

@@ -1,0 +1,9 @@
+表名,行数,列数,是否为空
+agency,1,8,False
+routes,6,12,False
+trips,501,9,False
+stop_times,7126,12,False
+stops,60,12,False
+calendar,4,10,False
+calendar_dates,2,3,False
+feed_info,1,8,False

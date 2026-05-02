@@ -1,0 +1,15 @@
+stop_id,stop_name,stop_lat,stop_lon,total_visits,evening_visits,routes_serving_stop,evening_coverage_rate
+9919,P703 / Regents Parking Lots,32.879802,-117.220002,162,40,R - Regents Express,0.24691358024691357
+9912,Mesa Nueva,32.875787,-117.223533,160,42,ML - Mesa Loop,0.2625
+9911,Warren Field (North),32.880735,-117.230701,136,36,"OL - Outside Loop, R - Regents Express",0.2647058823529412
+11902,Gilman Transit Center (South),32.876952,-117.234952,161,43,"OL - Outside Loop, S - SIO Shuttle",0.2670807453416149
+9904,WongAvery Library (East),32.874461,-117.23834,108,30,"OL - Outside Loop, S - SIO Shuttle",0.2777777777777778
+24150,Eighth College / Theatre District (South),32.872084,-117.241795,108,30,"OL - Outside Loop, S - SIO Shuttle",0.2777777777777778
+9906,Warren Field (South),32.880989,-117.229831,140,39,"IL - Inside Loop, R - Regents Express",0.2785714285714286
+9903,Gilman Dr & Pepper Canyon Dr (North),32.876343,-117.230416,139,39,"IL - Inside Loop, ML - Mesa Loop",0.2805755395683453
+9910,Revelle College (East),32.875574,-117.243091,112,32,"IL - Inside Loop, S - SIO Shuttle",0.2857142857142857
+24151,Eighth College / Theatre District (North),32.871718,-117.242206,112,32,"IL - Inside Loop, S - SIO Shuttle",0.2857142857142857
+9908,WongAvery Library (West),32.874272,-117.238416,139,40,"IL - Inside Loop, ML - Mesa Loop",0.28776978417266186
+10772,Gilman Transit Center (North),32.877111,-117.237377,139,40,"IL - Inside Loop, ML - Mesa Loop",0.28776978417266186
+88986,UCSD Central Campus Trolley,32.8793,-117.231916,309,89,"IL - Inside Loop, OL - Outside Loop, R - Regents Express",0.28802588996763756
+9902,Ridge Walk Mobility Hub,32.888709,-117.240648,114,34,"IL - Inside Loop, OL - Outside Loop",0.2982456140350877

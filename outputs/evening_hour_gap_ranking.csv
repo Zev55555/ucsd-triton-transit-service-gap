@@ -1,0 +1,6 @@
+trip_start_hour,hourly_service_frequency,estimated_headway_min,is_evening_hour,hour_range
+21,10,6.0,True,21:00-22:00
+20,13,4.615384615384615,True,20:00-21:00
+19,17,3.5294117647058822,True,19:00-20:00
+18,23,2.608695652173913,True,18:00-19:00
+17,24,2.5,True,17:00-18:00

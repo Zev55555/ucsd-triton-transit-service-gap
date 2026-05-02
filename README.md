@@ -200,7 +200,7 @@ outputs/route_optimization_simulation.csv
 ## 项目结构
 
 ```text
-ucsd-triton-transit-evening-gap-analysis/
+ucsd-triton-transit-service-gap/
 ├── README.md
 ├── data_dictionary.md
 ├── requirements.txt
